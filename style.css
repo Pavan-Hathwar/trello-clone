@@ -1,0 +1,219 @@
+body {
+  background-color: rgb(255, 255, 255);
+  margin: 0px;
+}
+
+
+.board {
+  /* float: left; */
+  margin: 10px;
+  background-color: rgb(28, 75, 48);
+  /* background-image: url("images/bg2.jpeg");
+  background-size: contain; */
+  color: white;
+  font-family: sans-serif;
+  font-size: large;
+  font-weight: bold;
+  height: 100px;
+  width: 190px;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.board:hover {
+  opacity: 0.7;
+}
+.seperator {
+  margin: 5px 0px;
+  background-color: transparent;
+  height: 30px;
+  box-sizing: border-box;
+  padding: 6px 8px 6px 8px;
+  width: 200px;
+  border-top: 2px solid rgb(106, 106, 120, 0.3);
+}
+
+.create-new-board {
+  /* background-image: unset; */
+  background-color: rgb(208, 206, 206, 0.3);
+  text-align: center;
+  color: rgb(27, 27, 70);
+  padding: 40px 20px;
+  font-size: medium;
+  font-weight: unset;
+  border: none;
+}
+
+.main {
+  display: flex;
+
+  flex-direction: row;
+  /* flex-wrap: wrap;          --when added margin to children, this was setting row to col why?*/
+  justify-content: center;
+  align-items: stretch;
+  margin-top: 35px;
+  min-height: 980px;
+}
+.side-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex: 20%;
+  margin: 0px 3px;
+  padding: 0px 13px;
+  /* border-bottom: 2px solid rgb(106, 106, 120, 0.3); */
+  /* min-width: 200px; */
+  align-self: flex-start;
+}
+.board-container {
+  display: flex;
+  flex-direction: column;
+  flex: 80%;
+  margin: 0px 3px;
+}
+.side-menu-content {
+  display: flex;
+  color: rgb(47, 47, 78);
+  margin: 3px 0px;
+  background-color: transparent;
+    align-items: center;
+  /* text-justify: left; */
+  text-align: left;
+  height: 30px;
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  box-sizing: border-box;
+  padding: 6px 8px 6px 8px;
+  width: 200px;
+  cursor: pointer;
+}
+.side-menu-content:hover {
+  background-color: rgb(190, 190, 190, 0.3);
+  border-radius: 5px;
+}
+.board-list-content {
+  font-family: sans-serif;
+  font-size: larger;
+  color: rgb(127, 127, 127);
+}
+.board-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.modal {
+  z-index: 1;
+  display: flex;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background-color: #fefefe;
+  padding: 15px 20px 20px 20px;
+  display: flex;
+  min-width: 300px;
+  margin: 10px;
+  flex-direction: column;
+  border-radius: 10px;
+  color: rgb(106, 106, 120);
+  
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+.modal-header {
+  display: flex;
+
+  border-bottom: 2px solid rgb(106, 106, 120, 0.3);
+}
+.modal-close-button-container {
+  display: flex;
+  flex: 10%;
+  justify-content: flex-end;
+}
+.modal-close-button {
+  align-self: center;
+  background-color: transparent;
+  border: none;
+  color: #5e6c84;
+  font-size: 25px;
+  padding: unset;
+  
+}
+.modal-title-container {
+  flex: 90%;
+  text-align: center;
+  font-size: 14px;
+}
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+.modal-template-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.modal-template {
+  width: 64px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+  background-size: contain;
+  cursor: pointer;
+  color:white;
+  font-size: 30px;
+}
+.modal-template:hover {
+  opacity: 0.7;
+}
+.new-board-form {
+  /* margin-top: 20px; */
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+}
+.new-board-form-label{
+    font-weight: bold;
+    font-size: 12px;
+  }
+.new-board-form-input{
+    padding: 8px 12px;
+    margin-top: 3px;
+    height:36px;
+    box-sizing: border-box;
+    border-radius: 3px;
+
+}
+.new-board-form-input-message{
+    visibility:hidden;
+    font-size: 14px;
+    color: #172b4d;
+    padding-top: 3px;
+
+}
+.new-board-form-button{
+    height:32px;
+    font-size: 14px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    color: white;
+    background-color: #0079bf;
+    border: none;
+    margin-top: 16px;
+
+}
+.new-board-form-button:disabled{
+    background-color: #ececec;
+    color: #5e6c84;
+}

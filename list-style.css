@@ -1,0 +1,167 @@
+body {
+  /* position: absolute;
+    top:0px;
+    bottom:0px;
+    right:0px;
+    left:0px;*/
+  margin: 0px;
+  height: 100vh;
+}
+.canvas {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-image: url("images/bg1.jpeg");
+  background-size: cover;
+  color: white;
+  font-family: sans-serif;
+  margin: 0px;
+
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  flex: 1 1 auto;
+  height: 90%;
+}
+.main-header {
+  height: 48px;
+  display: flex;
+}
+.board-name {
+    box-sizing: border-box;
+    margin: 13px 0px;
+    padding: 0px 12px;
+    font-size: 20px;
+}
+.lists-container {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* height: 100%; */
+  align-items: flex-start;
+}
+.list-container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  padding: 10px;
+  background-color: #dbdbe6;
+  color: rgb(47, 47, 78);
+  border-radius: 5px;
+  min-width: 272px;
+  max-height: calc(100% - 38px);
+}
+.list-container-header {
+  display: flex;
+  height: 40px;
+  justify-content: space-between;
+}
+.list-edit-button{
+    align-self:center;
+    justify-self:flex-end;
+    cursor: pointer;
+    color:#8b8b8b;
+    border-radius: 3px;
+    
+}
+.list-edit-button:hover{
+    background-color: rgb(207, 207, 207);
+}
+.list-container-header-title {
+  font-size: 16px;
+  margin: 11px 0px 11px 5px;
+  text-transform: uppercase;
+}
+.tasks-container {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  
+}
+
+
+.task {
+    display: flex;
+    flex-direction: column;
+  background-color: white;
+  margin: 5px 0px;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 1px 1px 5px #8b8b8b;
+}
+.task-edit-button{
+    visibility: hidden;
+    align-self: flex-end;
+    color:#8b8b8b;
+    font-size:14px;
+}
+.task:hover {
+  background-color: rgb(237, 237, 237);
+}
+.task:hover > .task-edit-button {
+    visibility: visible;
+    
+  }
+  .task:hover > .task-edit-button:hover {
+    
+    background-color: rgb(207, 207, 207);
+  }
+ul.lists-container {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+ul.tasks-container {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.new-card-form {
+  display: flex;
+  flex-direction: column;
+}
+.new-card-form-input {
+  height: 66px;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 5px;
+  margin: 5px 0px;
+  text-align: start;
+  font-family: sans-serif;
+  box-shadow: 1px 1px 5px #8b8b8b;
+}
+.new-card-form-button,
+.new-list-form-button {
+  height: 32px;
+
+  width: 82px;
+  font-size: 14px;
+  box-sizing: border-box;
+  background-color: #0079bf;
+  color: white;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 5px;
+  border-radius: 3px;
+}
+.new-list-form {
+  display: flex;
+  flex-direction: column;
+}
+.new-list-form-input {
+  height: 36px;
+  padding: 8px 12px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: none;
+  margin-bottom: 5px;
+}
+
