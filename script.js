@@ -1,64 +1,119 @@
-let backgroundColorList=["rgb(109, 12, 51)","rgb(45, 80, 7)","rgb(44, 12, 109)"]
-let modalTemplateContainer=document.getElementsByClassName("modal-template-container")[0];
-let boardColor=backgroundColorList[0];
-// document.getElementsByClassName("board")[1].style.backgroundColor=backgroundColorList[0];
-class board {
-    constructor(parent, boardName,boardColor) {
-      this.parent = parent;
-      this.boardName = boardName;
-      this.boardColor=boardColor;
-      this.lists = [];
-      this.createBoard();
-      this.appendBoard();
-    }
-    createBoard() {
-      this.li = document.createElement("li");
-      this.li.innerText = this.boardName;
-      this.li.style.backgroundColor=this.boardColor;
-      this.li.className = "board";
-      this.li.addEventListener("click", () => {
-        alert(this.boardName);
-      });
-    }
-    appendBoard() {
-      this.parent.insertBefore(this.li,this.parent.lastElementChild);
-    }
+function initialApp() {
+  return {
+    boards: [],
+  };
 }
 
+function createBoard(title, bgColor) {
+  return {
+    title: title,
+    backgroundColor: bgColor,
+    lists: [],
+  };
+}
 
-backgroundColorList.forEach(element => {
-    let lable=document.createElement("div");
-    lable.className="modal-template";
-    lable.name=element;
-    lable.style.backgroundColor=element;
-    modalTemplateContainer.append(lable);
+function addBoardToApp(app, board) {
+  app.boards.push(board);
+}
+
+function renderBoard(parent, board) {
+  const li = document.createElement("li");
+  li.innerText = board.title;
+  li.style.backgroundColor = board.backgroundColor;
+  li.className = "board";
+  li.addEventListener("click", () => {
+    const url="list.html";
+    sessionStorage.setItem("currentBoard",JSON.stringify(board));
+    window.location.href=url;
+  });
+  parent.insertBefore(li, parent.lastElementChild);
+}
+
+let app;
+// Use hex code
+let backgroundColors = [
+  "#6d0c33",
+  "#2d5007",
+  "#2c0c6d",
+];
+let modalTemplateContainer = document.getElementById(
+  "modal-template-container"
+);
+let boardColor = backgroundColors[0];
+// document.getElementsByClassName("board")[1].style.backgroundColor=backgroundColorList[0];
+// class board {
+//     constructor(parent, boardName,boardColor) {
+//       this.parent = parent;
+//       this.boardName = boardName;
+//       this.boardColor = boardColor;
+//       this.lists = [];
+//       this.createBoard();
+//       this.appendBoard();
+//     }
+//     createBoard() {
+//       this.li = document.createElement("li");
+//       this.li.innerText = this.boardName;
+//       this.li.style.backgroundColor=this.boardColor;
+//       this.li.className = "board";
+//       this.li.addEventListener("click", () => {
+//         alert(this.boardName);
+//       });
+//     }
+//     appendBoard() {
+//       this.parent.insertBefore(this.li,this.parent.lastElementChild);
+//     }
+// }
+
+backgroundColors.forEach((element) => {
+  let lable = document.createElement("label");
+  lable.className = "modal-template";
+  //   lable.name = element;
+  lable.style.backgroundColor = element;
+  let radioButton = document.createElement("input");
+  radioButton.type = "radio";
+  radioButton.name = "colors";
+  radioButton.value = element;
+  radioButton.addEventListener("click", (event) => {
+    boardColor = event.target.value;
+  });
+  radioButton.id = element;
+  lable.for = radioButton.id;
+  lable.setAttribute("for", element);
+  modalTemplateContainer.append(radioButton);
+  modalTemplateContainer.append(lable);
 });
 
-let templateList=document.getElementsByClassName("modal-template");
-for(let i=0;i<templateList.length;i++){
-    templateList[i].addEventListener('click',(event)=>{
-        boardColor=templateList[i].style.backgroundColor;
-        
-    }
-    );
-}
-(event)=>{boardColor=templateList[i].style.backgroundColor;}
-function backgroundSelector(){
-    alert(this.style.backgroundColor);
-}
+document.getElementById(backgroundColors[0]).defaultChecked = true;
 
-let newBoardForm = document.getElementsByClassName("new-board-form")[0];
-newBoardForm.addEventListener("submit",(event)=>{
-    event.preventDefault();
-    let boardContainer = document.getElementsByClassName("board-list")[0];
-    let boardName=newBoardForm.elements["newBoardFormInput"].value;
-    new board(boardContainer, boardName,boardColor);
-    closeModal();
-    newBoardForm.elements["newBoardFormInput"].value="";
-    newBoardForm.elements["createButton"].disabled="true";
-    boardColor=backgroundColorList[0];
+// let templateList = document.getElementsByClassName("modal-template");
+// for (let i = 0; i < templateList.length; i++) {
+//   templateList[i].addEventListener("click", (event) => {
+//     alert("hi");
+//     boardColor = templateList[i].style.backgroundColor;
+//   });
+// }
 
+let newBoardForm = document.getElementById("new-board-form");
+newBoardForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const formObject = new FormData(newBoardForm);
+  //   for (let entry of formObject) {
+  //     console.log(entry);
+  //   }
+  const newBoard = createBoard(
+    formObject.get("newBoardFormInput"),
+    formObject.get("colors")
+  );
+  const boardContainer = document.getElementById("board-list");
+  renderBoard(boardContainer, newBoard);
+  addBoardToApp(app, newBoard);
+  sessionStorage.setItem("app", JSON.stringify(app));
+  let formButton = document.getElementsByClassName("new-board-form-button")[0];
+  formButton.setAttribute("disabled", "true");
+  newBoardForm.reset();
+  console.log(app);
 
+  closeModal();
 });
 
 function newBoardModal() {
@@ -71,29 +126,35 @@ function closeModal() {
   modal.style.visibility = "hidden";
 }
 
-function searchbarFocus(isfocused) {
-  let searchbar = document.getElementsByClassName("searchbar")[0];
-  if (isfocused) {
-    searchbar.style.backgroundColor = "white";
+
+
+function boardNameValidation(val) {
+  let formButton = document.getElementsByClassName("new-board-form-button")[0];
+  let boardNameValidationMessage = document.getElementsByClassName(
+    "new-board-form-input-message"
+  )[0];
+  if (val.trim() == "") {
+    formButton.disabled = true;
+    boardNameValidationMessage.style.visibility = "visible";
   } else {
-    searchbar.style.backgroundColor = "rgb(105, 153, 187)";
+    formButton.disabled = false;
+    boardNameValidationMessage.style.visibility = "hidden";
   }
 }
 
-function boardNameValidation(val){
-    let formButton=document.getElementsByClassName("new-board-form-button")[0];
-    let boardNameValidationMessage=document.getElementsByClassName("new-board-form-input-message")[0];
-    if(val.trim() == ""){
-        formButton.disabled=true;
-        boardNameValidationMessage.style.visibility="visible";
-    }
-    else{
-        formButton.disabled=false;
-        boardNameValidationMessage.style.visibility="hidden";
-    }
-}
+window.onload = function () {
+  if (!("app" in sessionStorage)) {
+    app = initialApp();
+    sessionStorage.setItem("app", JSON.stringify(app));
+    console.log("initial time");
+  } else {
+    console.log("refresh time");
 
-
-
-class list {}
-class card {}
+    app = JSON.parse(sessionStorage.getItem("app"));
+    console.log(app);
+    const boardContainer = document.getElementById("board-list");
+    app.boards.forEach((element) => {
+      renderBoard(boardContainer, element);
+    });
+  }
+};

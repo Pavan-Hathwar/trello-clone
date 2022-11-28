@@ -51,7 +51,7 @@
                     
                 </div> -->
                 <h2 class="board-list-content">YOUR WORKSPACES</h2>
-                <ul class="board-list">
+                <ul class="board-list" id="board-list">
                     <li class="board" style="background-size: contain; background-image: url(images/bg2.jpeg);" >My Class</li>
                     <!-- <h2 class="board" style="background-size: contain; background-image: url(images/bg3.jpeg);" >My Class</h2>
                     <h2 class="board" style="background-size: contain; background-image: url(images/bg2.jpeg);" >My Class</h2>
@@ -84,9 +84,10 @@
               
               <main class="modal-body">
                 
-                <form class="new-board-form">
+                <form class="new-board-form" id="new-board-form">
                     <h4>backgrounds</h4>
-                    <label class="modal-template-container" >
+                    <!--Change name-->
+                    <label class="modal-template-container" id="modal-template-container">
                         <!-- <label class="modal-template" style="background-color:rgb(109, 12, 51);" ></label>
                         <label class="modal-template" style="background-color: rgb(45, 80, 7);"></label>
                         <label class="modal-template" style="background-color: rgb(44, 12, 109);"></label> -->
@@ -95,7 +96,7 @@
                     <label class="new-board-form-label">Board Name<span style="color: red;">*</span></label>
                     <input type="text" class="new-board-form-input" name="newBoardFormInput" oninput="boardNameValidation(this.value)">
                     <label class="new-board-form-input-message" >Board title is required</label>
-                    <button class="new-board-form-button" disabled="true"type="submit" name="createButton">create</button>
+                    <button class="new-board-form-button" disabled="true" type="submit" name="createButton">create</button>
                 </form>
               </main>
               <!-- <footer class="modal-footer">
@@ -109,5 +110,6 @@
         
         
         <script type="text/javascript" src="script.js"></script>
+        <script type="text/javascript" src="navbar.js"></script>
     </body>
 </html>

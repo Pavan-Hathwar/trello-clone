@@ -7,11 +7,11 @@
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="navbar-style.css" ></link>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script type="text/javascript" src="script.js"></script>
+    
     <link rel="stylesheet" type="text/css" href="list-style.css" ></link>
 </head>
 <body>
-    <div class="canvas">
+    <div class="canvas" id="canvas">
         <header class="navbar">
             <nav class="navbar-left-container">
                 <li class="navbar-left-content" style="font-weight: bold" ><i class="material-icons" style="padding:0px 3px 0px 0px;">dashboard</i> Trello</li>
@@ -32,9 +32,9 @@
     
         <main class="main">
             <header class="main-header">
-                <h1 class="board-name">Homework</h1>
+                <h1 class="board-name" id="board-name">Homework</h1>
             </header>
-            <ul class="lists-container">
+            <ul class="lists-container" id="lists-container">
                 <li class="list-container">
                     <header class="list-container-header">
                         <h2 class="list-container-header-title">to-do</h2>
@@ -58,12 +58,12 @@
                         <li class="task"><i class="material-icons task-edit-button">create</i>do projects</li>
                         <li class="task"><i class="material-icons task-edit-button">create</i>learn tables</li>
                         <form class="new-card-form">
-                            <textarea class="new-card-form-input" type="text" placeholder="Enter a title for new card"></textarea>
-                            <button class="new-card-form-button">Add card</button>
+                            <textarea class="new-card-form-input" type="text" placeholder="Enter a title for new card" name="newCardFormInput"></textarea>
+                            <button class="new-card-form-button" type="Submit">Add card</button>
                         </form>
                     </ul>
                 </li>
-                <li class="list-container">
+                <!-- <li class="list-container">
                     <header class="list-container-header">
                         <h2 class="list-container-header-title">to-do</h2>
                         <i class="material-icons list-edit-button">more_horiz</i>
@@ -110,20 +110,21 @@
                             <button class="new-card-form-button">Add card</button>
                         </form>
                     </ul>
-                </li>
+                </li> -->
                 
                 
                 
-                <form class="list-container new-list-form">
+                <form class="list-container new-list-form" id="new-list-form">
                         
-                        <input type="text" placeholder="Enter list title..." class="new-list-form-input">
-                        <button class="new-list-form-button">create</button>
+                        <input type="text" placeholder="Enter list title..." class="new-list-form-input" name="newListFormInput" required="true">
+                        <button class="new-list-form-button" type="submit">create</button>
                 </form>
                 
             </ul>
         </main>
     </div>
     
-    
+    <script type="text/javascript" src="list-script.js"></script>
+    <script type="text/javascript" src="navbar.js"></script>
 </body>
 </html>
