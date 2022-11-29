@@ -1,17 +1,22 @@
-const currentBoard = JSON.parse(sessionStorage.getItem("currentBoard"));
-const app = JSON.parse(sessionStorage.getItem("app"));
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+let currentBoardId = urlParams.get('Id');
+
+const app = JSON.parse(localStorage.getItem("app"));
+
 let canvas = document.getElementById("canvas");
-canvas.style.backgroundColor = currentBoard.backgroundColor;
 let boardName = document.getElementById("board-name");
-boardName.innerText = currentBoard.title;
 
-const appCurrentBoard = findBoard(app, currentBoard);
+const appCurrentBoard = findBoard(app, currentBoardId);
+let currentList;
+canvas.style.backgroundColor = appCurrentBoard.backgroundColor;
+boardName.innerText = appCurrentBoard.title;
 
-function findBoard(app, currentBoard) {
+function findBoard(app, currentBoardId) {
   let returnValue = null;
   app.boards.forEach((element) => {
     // console.log(element.title==currentBoard.title);
-    if (element.title == currentBoard.title) {
+    if (element.id == currentBoardId) {
       returnValue = element;
     }
   });
@@ -20,8 +25,8 @@ function findBoard(app, currentBoard) {
 }
 const listsContainer = document.getElementById("lists-container");
 
-currentBoard.lists.forEach((element) => {
-  renderList(listsContainer, element);
+appCurrentBoard.lists.forEach((element) => {
+  renderList(listsContainer, element, element.tasks);
 });
 
 function createList(title) {
@@ -50,20 +55,17 @@ newListForm.addEventListener("submit", (event) => {
   //   for (let entry of formObject) {
   //     console.log(entry);
   //   }
-
   const newList = createList(formObject.get("newListFormInput"));
   console.log(newList);
   const listsContainer = document.getElementById("lists-container");
   renderList(listsContainer, newList);
-  addListToBoard(currentBoard, newList);
   addListToBoard(appCurrentBoard, newList);
-  sessionStorage.setItem("currentBoard", JSON.stringify(currentBoard));
-  sessionStorage.setItem("app", JSON.stringify(app));
+  localStorage.setItem("app", JSON.stringify(app));
 
   newListForm.reset();
 });
 
-function renderList(parent, list) {
+function renderList(parent, list ,tasks=[]) {
   const li = document.createElement("li");
   li.className = "list-container";
   const header = document.createElement("header");
@@ -83,27 +85,35 @@ function renderList(parent, list) {
   textarea.type = "text";
   textarea.placeholder = "Enter a title for new card";
   textarea.required = "true";
+  textarea.name="newCardFormInput"
   const button = document.createElement("button");
   button.className = "new-card-form-button";
   button.type = "submit";
   button.innerText = "Add card";
+//   add the lisstner for button here            
+  li.addEventListener("click",(event)=>{currentList=list;});
 
   form.appendChild(textarea);
   form.appendChild(button);
 
+  form.addEventListener("submit",(event)=>{
+    event.preventDefault();
+    const formData=new FormData(form);
+    const newTask=createtask(formData.get("newCardFormInput"));
+    renderTask(form.parentElement,newTask);
+    form.reset();
+    addTaskToList(currentList,newTask);
+    localStorage.setItem("app", JSON.stringify(app));
+
+    });
+
   ul.appendChild(form);
 
-  //   form.addEventListener("submit",(event)=>{
-  //     event.preventDefault();
-  //     console.log(new FormData(form));
-  //     const formData=new FormData(form);
-  //     console.log(formData.get("newCardFormInput"));
-  //     const newTask=createtask(formData.get("newCardFormInput"));
-  //     console.log("newtask"+newTask);
-  //     renderTask(form.parent,newTask);
-
-  //     });
-
+   
+    for (let i = 0; i < tasks.length; i++) {
+        renderTask(ul,tasks[i]);
+        
+      }
   header.appendChild(h2);
   header.appendChild(i);
 
@@ -130,6 +140,23 @@ const newCardFormList = document.getElementsByClassName("new-card-form");
 
 // });
 
+// for (let i = 0; i < newCardFormList.length; i++) {
+//     newCardFormList[i].addEventListener("submit",(event)=>{
+//                 event.preventDefault();
+//                 const formData=new FormData(newCardFormList[i]);
+//                 const newTask=createtask(formData.get("newCardFormInput"));
+//                 console.log(newTask);
+//                 renderTask(newCardFormList[i].parentElement,newTask);
+//                 newCardFormList[i].reset();
+//                 addTaskToList(currentList,newTask);
+//                 localStorage.setItem("app", JSON.stringify(app));
+                
+        
+//             });
+        
+    
+// }
+
 function renderTask(parent, newTask) {
   const li = document.createElement("li");
   li.className = "task";
@@ -137,6 +164,9 @@ function renderTask(parent, newTask) {
   i.classList.add("material-icons", "task-edit-button");
   i.innerText = "create";
   li.appendChild(i);
-  li.appendChild(newTask.task);
+  const span=document.createElement("span");
+  span.innerText=newTask.task;
+  li.appendChild(span);
+  console.log(li);
   parent.insertBefore(li, parent.lastElementChild);
 }

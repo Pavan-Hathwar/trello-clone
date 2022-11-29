@@ -4,9 +4,10 @@ function initialApp() {
   };
 }
 
-function createBoard(title, bgColor) {
+function createBoard(title, id, bgColor) {
   return {
     title: title,
+    id: id,
     backgroundColor: bgColor,
     lists: [],
   };
@@ -16,16 +17,28 @@ function addBoardToApp(app, board) {
   app.boards.push(board);
 }
 
+function makeCounter() {
+    var i = 0;
+    return function() {
+        return i++;
+    }
+}
+
+var id ;
+
 function renderBoard(parent, board) {
-  const li = document.createElement("li");
+    // const li = document.createElement("li");
+  const li = document.createElement("a");
   li.innerText = board.title;
   li.style.backgroundColor = board.backgroundColor;
   li.className = "board";
-  li.addEventListener("click", () => {
-    const url="list.html";
-    sessionStorage.setItem("currentBoard",JSON.stringify(board));
-    window.location.href=url;
-  });
+  const url="list.html?Id="+board.id;
+  li.href=url;
+//   li.addEventListener("click", () => {
+//     const url="list.html?Id="+board.id;
+    
+//     window.location.href=url;
+//   });
   parent.insertBefore(li, parent.lastElementChild);
 }
 
@@ -100,14 +113,17 @@ newBoardForm.addEventListener("submit", (event) => {
   //   for (let entry of formObject) {
   //     console.log(entry);
   //   }
+  
   const newBoard = createBoard(
     formObject.get("newBoardFormInput"),
+    parseInt(localStorage.getItem("id")),
     formObject.get("colors")
   );
+  localStorage.setItem("id",parseInt(localStorage.getItem("id"))+1);
   const boardContainer = document.getElementById("board-list");
   renderBoard(boardContainer, newBoard);
   addBoardToApp(app, newBoard);
-  sessionStorage.setItem("app", JSON.stringify(app));
+  localStorage.setItem("app", JSON.stringify(app));
   let formButton = document.getElementsByClassName("new-board-form-button")[0];
   formButton.setAttribute("disabled", "true");
   newBoardForm.reset();
@@ -143,18 +159,24 @@ function boardNameValidation(val) {
 }
 
 window.onload = function () {
-  if (!("app" in sessionStorage)) {
+//    localStorage.clear();
+  if (!("app" in localStorage)) {
     app = initialApp();
-    sessionStorage.setItem("app", JSON.stringify(app));
+    localStorage.setItem("app", JSON.stringify(app));
     console.log("initial time");
   } else {
     console.log("refresh time");
 
-    app = JSON.parse(sessionStorage.getItem("app"));
+    app = JSON.parse(localStorage.getItem("app"));
     console.log(app);
     const boardContainer = document.getElementById("board-list");
     app.boards.forEach((element) => {
       renderBoard(boardContainer, element);
     });
   }
+  if(!("id" in localStorage)){
+    
+    localStorage.setItem("id",0);
+  }
+  
 };
