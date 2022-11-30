@@ -22,10 +22,26 @@ body {
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.board-delete-button{
+   visibility: hidden;
+    color:white;
+    height:fit-content;
 }
 .board:hover {
   opacity: 0.7;
 }
+.board:hover > .board-delete-button {
+    visibility: visible;
+    
+  }
+  .board:hover > .board-delete-button:hover {
+    color: #c0c0c0;
+    
+  }
 .seperator {
   margin: 5px 0px;
   background-color: transparent;

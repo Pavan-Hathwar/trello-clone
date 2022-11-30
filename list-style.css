@@ -61,12 +61,16 @@ body {
   height: 40px;
   justify-content: space-between;
 }
+.list-container-header:hover>.list-edit-button{
+  visibility: visible;
+}
 .list-edit-button{
     align-self:center;
     justify-self:flex-end;
     cursor: pointer;
     color:#8b8b8b;
     border-radius: 3px;
+    visibility: hidden;
     
 }
 .list-edit-button:hover{

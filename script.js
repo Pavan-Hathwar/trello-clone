@@ -13,6 +13,8 @@ function createBoard(title, id, bgColor) {
   };
 }
 
+let app;
+
 function addBoardToApp(app, board) {
   app.boards.push(board);
 }
@@ -24,12 +26,24 @@ function makeCounter() {
     }
 }
 
-var id ;
+// var id ;
 
 function renderBoard(parent, board) {
     // const li = document.createElement("li");
   const li = document.createElement("a");
   li.innerText = board.title;
+  const i=document.createElement("i");
+  i.classList.add("material-icons", "board-delete-button");
+  i.id=board.id;
+  i.innerText="delete";
+  i.addEventListener("click",(event)=>{
+    event.preventDefault();
+    app=removeBoard(app,board.id);
+    parent.removeChild(li);
+    localStorage.setItem("app", JSON.stringify(app));
+
+  });
+  li.appendChild(i);
   li.style.backgroundColor = board.backgroundColor;
   li.className = "board";
   const url="list.html?Id="+board.id;
@@ -42,7 +56,15 @@ function renderBoard(parent, board) {
   parent.insertBefore(li, parent.lastElementChild);
 }
 
-let app;
+function removeBoard(app,boardId){
+    app.boards.forEach((element,index,object) => {
+        if(boardId==element.id){
+            object.splice(index,1);
+        }
+        
+    });
+    return app;
+}
 // Use hex code
 let backgroundColors = [
   "#6d0c33",
@@ -116,10 +138,10 @@ newBoardForm.addEventListener("submit", (event) => {
   
   const newBoard = createBoard(
     formObject.get("newBoardFormInput"),
-    parseInt(localStorage.getItem("id")),
+    Date.now(),
     formObject.get("colors")
   );
-  localStorage.setItem("id",parseInt(localStorage.getItem("id"))+1);
+//   localStorage.setItem("id",parseInt(localStorage.getItem("id"))+1);
   const boardContainer = document.getElementById("board-list");
   renderBoard(boardContainer, newBoard);
   addBoardToApp(app, newBoard);
@@ -174,9 +196,9 @@ window.onload = function () {
       renderBoard(boardContainer, element);
     });
   }
-  if(!("id" in localStorage)){
+//   if(!("id" in localStorage)){
     
-    localStorage.setItem("id",0);
-  }
+//     localStorage.setItem("id",0);
+//   }
   
 };
