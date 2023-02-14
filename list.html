@@ -41,45 +41,34 @@
                         <i class="material-icons list-edit-button">more_horiz</i>
                     </header>
                     
-                    <ul class="tasks-container">
-                        <li class="task"><i class="material-icons task-edit-button">create</i>take science books</li>
-                        <li class="task"><i class="material-icons task-edit-button">create</i>do projects</li>
-                        <li class="task"><i class="material-icons task-edit-button">create</i>learn tables</li>
-                        <li class="task"><i class="material-icons task-edit-button">create</i>take science books</li>
-                        <li class="task"><i class="material-icons task-edit-button">create</i>do projects</li>
-                        <li class="task"><i class="material-icons task-edit-button">create</i>learn tables</li>
-                        <li class="task"><i class="material-icons task-edit-button">create</i>take science books</li>
-                        <li class="task"><i class="material-icons task-edit-button">create</i>do projects</li>
-                        <li class="task"><i class="material-icons task-edit-button">create</i>learn tables</li>
-                        <li class="task"><i class="material-icons task-edit-button">create</i>take science books</li>
-                        <li class="task"><i class="material-icons task-edit-button">create</i>do projects</li>
-                        <li class="task"><i class="material-icons task-edit-button">create</i>learn tables</li>
-                        <li class="task"><i class="material-icons task-edit-button">create</i>take science books</li>
-                        <li class="task"><i class="material-icons task-edit-button">create</i>do projects</li>
-                        <li class="task"><i class="material-icons task-edit-button">create</i>learn tables</li>
+                    <ul class="tasks-container" id="l1" >
+                        <li class="task" draggable="true" id="t1" ><i class="material-icons task-edit-button" >create</i>take science books</li>
+                        <li class="task" draggable="true" id="t2"><i class="material-icons task-edit-button">create</i>do projects</li>
+                        <li class="task" draggable="true" id="t3"><i class="material-icons task-edit-button">create</i>learn tables</li>
+                        
                         <form class="new-card-form">
                             <textarea class="new-card-form-input" type="text" placeholder="Enter a title for new card" name="newCardFormInput"></textarea>
                             <button class="new-card-form-button" type="Submit">Add card</button>
                         </form>
                     </ul>
                 </li>
-                <!-- <li class="list-container">
+                <li class="list-container">
                     <header class="list-container-header">
                         <h2 class="list-container-header-title">to-do</h2>
                         <i class="material-icons list-edit-button">more_horiz</i>
                     </header>
                     
-                    <ul class="tasks-container">
-                        <li class="task"><i class="material-icons task-edit-button">create</i>take science books</li>
-                        <li class="task"><i class="material-icons task-edit-button">create</i>do projects</li>
-                        <li class="task"><i class="material-icons task-edit-button">create</i>learn tables</li>
+                    <ul class="tasks-container" >
+                        <li class="task" draggable="true" ><i class="material-icons task-edit-button">create</i>take science books</li>
+                        <li class="task" draggable="true" ><i class="material-icons task-edit-button">create</i>do projects</li>
+                        <li class="task" draggable="true" ><i class="material-icons task-edit-button">create</i>learn tables</li>
                         <form class="new-card-form">
                             <textarea class="new-card-form-input" type="text" placeholder="Enter a title for new card"></textarea>
                             <button class="new-card-form-button">Add card</button>
                         </form>
                     </ul>
                 </li>
-                <li class="list-container">
+                <!-- <li class="list-container">
                     <header class="list-container-header">
                         <h2 class="list-container-header-title">to-do</h2>
                         <i class="material-icons list-edit-button">more_horiz</i>
@@ -124,7 +113,7 @@
         </main>
     </div>
     
-    <script type="text/javascript" src="list-script.js"></script>
+    <script type="module" src="list-script.js"></script>
     <script type="text/javascript" src="navbar.js"></script>
 </body>
 </html>

@@ -1,76 +1,67 @@
-function initialApp() {
-  return {
-    boards: [],
-  };
-}
+import {
+  initialApp,
+  createBoard,
+  addBoardToApp,
+  removeBoard,
+} from "./Modules/app.js";
+// function initialApp() {
+//   return {
+//     boards: [],
+//   };
+// }
 
-function createBoard(title, id, bgColor) {
-  return {
-    title: title,
-    id: id,
-    backgroundColor: bgColor,
-    lists: [],
-  };
-}
+// function createBoard(title, id, bgColor) {
+//   return {
+//     title: title,
+//     id: id,
+//     backgroundColor: bgColor,
+//     lists: [],
+//   };
+// }
 
+// function addBoardToApp(app, board) {
+//   app.boards.push(board);
+// }
+// function removeBoard(app, boardId) {
+//   app.boards.forEach((element, index, object) => {
+//     if (boardId == element.id) {
+//       object.splice(index, 1);
+//     }
+//   });
+//   return app;
+// }
 let app;
 
-function addBoardToApp(app, board) {
-  app.boards.push(board);
-}
-
-function makeCounter() {
-    var i = 0;
-    return function() {
-        return i++;
-    }
-}
-
-// var id ;
-
 function renderBoard(parent, board) {
-    // const li = document.createElement("li");
+  // const li = document.createElement("li");
   const li = document.createElement("a");
   li.innerText = board.title;
-  const i=document.createElement("i");
+  const i = document.createElement("i");
   i.classList.add("material-icons", "board-delete-button");
-  i.id=board.id;
-  i.innerText="delete";
-  i.addEventListener("click",(event)=>{
+  i.id = board.id;
+  i.innerText = "delete";
+  i.addEventListener("click", (event) => {
     event.preventDefault();
-    app=removeBoard(app,board.id);
+    app = JSON.parse(localStorage.getItem("app"));
+    app = removeBoard(app, board.id);
     parent.removeChild(li);
     localStorage.setItem("app", JSON.stringify(app));
-
   });
   li.appendChild(i);
   li.style.backgroundColor = board.backgroundColor;
   li.className = "board";
-  const url="list.html?Id="+board.id;
-  li.href=url;
-//   li.addEventListener("click", () => {
-//     const url="list.html?Id="+board.id;
-    
-//     window.location.href=url;
-//   });
+  const url = "list.html?Id=" + board.id;
+  li.href = url;
+  //   li.addEventListener("click", () => {
+  //     const url="list.html?Id="+board.id;
+
+  //     window.location.href=url;
+  //   });
   parent.insertBefore(li, parent.lastElementChild);
 }
 
-function removeBoard(app,boardId){
-    app.boards.forEach((element,index,object) => {
-        if(boardId==element.id){
-            object.splice(index,1);
-        }
-        
-    });
-    return app;
-}
 // Use hex code
-let backgroundColors = [
-  "#6d0c33",
-  "#2d5007",
-  "#2c0c6d",
-];
+let backgroundColors = ["#6d0c33", "#2d5007", "#2c0c6d"];
 let modalTemplateContainer = document.getElementById(
   "modal-template-container"
 );
@@ -135,15 +126,16 @@ newBoardForm.addEventListener("submit", (event) => {
   //   for (let entry of formObject) {
   //     console.log(entry);
   //   }
-  
+
   const newBoard = createBoard(
     formObject.get("newBoardFormInput"),
     Date.now(),
     formObject.get("colors")
   );
-//   localStorage.setItem("id",parseInt(localStorage.getItem("id"))+1);
+  //   localStorage.setItem("id",parseInt(localStorage.getItem("id"))+1);
   const boardContainer = document.getElementById("board-list");
   renderBoard(boardContainer, newBoard);
+  app = JSON.parse(localStorage.getItem("app"));
   addBoardToApp(app, newBoard);
   localStorage.setItem("app", JSON.stringify(app));
   let formButton = document.getElementsByClassName("new-board-form-button")[0];
@@ -153,19 +145,22 @@ newBoardForm.addEventListener("submit", (event) => {
 
   closeModal();
 });
-
+let createNewBoardButton = document.getElementById("createNewBoardButton");
+createNewBoardButton.addEventListener("click", newBoardModal);
 function newBoardModal() {
   let modal = document.getElementsByClassName("modal")[0];
   modal.style.visibility = "visible";
 }
-
+let modalCloseButton = document.getElementById("modalCloseButton");
+modalCloseButton.addEventListener("click", closeModal);
 function closeModal() {
   let modal = document.getElementsByClassName("modal")[0];
   modal.style.visibility = "hidden";
 }
-
-
-
+let newBoardFormInput = document.getElementById("newBoardFormInput");
+newBoardFormInput.addEventListener("input", (event) => {
+  boardNameValidation(event.target.value);
+});
 function boardNameValidation(val) {
   let formButton = document.getElementsByClassName("new-board-form-button")[0];
   let boardNameValidationMessage = document.getElementsByClassName(
@@ -181,7 +176,7 @@ function boardNameValidation(val) {
 }
 
 window.onload = function () {
-//    localStorage.clear();
+  //    localStorage.clear();
   if (!("app" in localStorage)) {
     app = initialApp();
     localStorage.setItem("app", JSON.stringify(app));
@@ -196,9 +191,8 @@ window.onload = function () {
       renderBoard(boardContainer, element);
     });
   }
-//   if(!("id" in localStorage)){
-    
-//     localStorage.setItem("id",0);
-//   }
-  
+  //   if(!("id" in localStorage)){
+
+  //     localStorage.setItem("id",0);
+  //   }
 };

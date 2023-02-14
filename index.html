@@ -63,7 +63,7 @@
                     <h2 class="board" style="background-size: contain; background-image: url(images/bg2.jpeg);" >My Class</h2>
                     <h2 class="board" style="background-size: contain; background-image: url(images/bg2.jpeg);" >My Class</h2> -->
                     <li class="board">homework</li>
-                    <button class="board create-new-board" onclick="newBoardModal()">Create new board</button>
+                    <button class="board create-new-board" id="createNewBoardButton" >Create new board</button>
                 </ul>
             </section>
         
@@ -77,7 +77,7 @@
                     </div>
                     
                     <div class="modal-close-button-container" >
-                        <button class="modal-close-button" onclick="closeModal()">&times;</button>
+                        <button class="modal-close-button" id="modalCloseButton" >&times;</button>
                     </div>
                     
                 </header>
@@ -94,7 +94,7 @@
                     </label>
                 
                     <label class="new-board-form-label">Board Name<span style="color: red;">*</span></label>
-                    <input type="text" class="new-board-form-input" name="newBoardFormInput" oninput="boardNameValidation(this.value)">
+                    <input type="text" class="new-board-form-input" id="newBoardFormInput" name="newBoardFormInput">
                     <label class="new-board-form-input-message" >Board title is required</label>
                     <button class="new-board-form-button" disabled="true" type="submit" name="createButton">create</button>
                 </form>
@@ -109,7 +109,7 @@
     <!-- </div> -->
         
         
-        <script type="text/javascript" src="script.js"></script>
+        <script type="module" src="script.js"></script>
         <script type="text/javascript" src="navbar.js"></script>
     </body>
 </html>
